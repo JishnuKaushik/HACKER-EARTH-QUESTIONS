@@ -93,42 +93,40 @@ Hence Monk eats 7 + 4 + 3 = 14 ✅
 **Memory Limit:** 256 MB*/
 
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <queue>
 using namespace std;
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    int t;
-    cin >> t;
-    
-    while (t--) {
-        long long n, k;
-        cin >> n >> k;
-        
-        priority_queue<long long> maxHeap;
-        
-        for (int i = 0; i < n; i++) {
+    int T;
+    cin >> T;
+
+    while (T--) {
+        int N, K;
+        cin >> N >> K;
+
+        priority_queue<long long> pq;
+
+        for (int i = 0; i < N; i++) {
             long long x;
             cin >> x;
-            maxHeap.push(x);
+            pq.push(x);
         }
-        
+
         long long total = 0;
-        
-        for (long long i = 0; i < k; i++) {
-            long long largest = maxHeap.top();
-            maxHeap.pop();
-            
-            if (largest == 0) break;
-            
-            total += largest;
-            maxHeap.push(largest / 2);
+
+        for (int i = 0; i < K; i++) {
+            long long maxCandies = pq.top();
+            pq.pop();
+
+            total += maxCandies;
+
+            long long newValue = maxCandies / 2;
+            pq.push(newValue);
         }
-        
-        cout << total << "\n";
+
+        cout << total << endl;
     }
-    
+
     return 0;
 }
